@@ -1,65 +1,130 @@
-import Image from "next/image";
+import Link from "next/link";
+import {
+  Zap, TrendingUp, CalendarClock, MapPin, GitBranch,
+  AlertTriangle, CheckCircle, Activity, ArrowUpRight
+} from "lucide-react";
 
-export default function Home() {
+const kpis = [
+  { label: "Active DTRs Monitored", value: "1,247", sub: "+23 this week", color: "#00d4aa", icon: Activity },
+  { label: "EV Registrations (Vahan)", value: "84,312", sub: "Bengaluru · 2024", color: "#6366f1", icon: Zap },
+  { label: "Peak Reduction (Sim)", value: "21.4%", sub: "7–10 PM window", color: "#f59e0b", icon: TrendingUp },
+  { label: "Forecast MAPE (24h)", value: "8.2%", sub: "vs 23% persistence", color: "#10b981", icon: CheckCircle },
+];
+
+const alerts = [
+  { type: "warn", msg: "Koramangala DTR-114: Load at 91% capacity", time: "2 min ago" },
+  { type: "warn", msg: "HSR Layout Feeder F-07: Evening peak spike detected", time: "8 min ago" },
+  { type: "ok", msg: "Whitefield corridor: Scheduling nudges accepted by 68% users", time: "15 min ago" },
+  { type: "ok", msg: "Electronic City: 3 new siting recommendations generated", time: "32 min ago" },
+  { type: "warn", msg: "Sarjapur DTR-089: Oil temp alarm threshold approaching", time: "1 hr ago" },
+];
+
+const modules = [
+  { href: "/forecasting", label: "Demand Forecasting", desc: "Graph WaveNet · 15-min granularity · 24–72h ahead", color: "#6366f1", icon: TrendingUp },
+  { href: "/scheduling", label: "Charging Scheduler", desc: "Contextual bandit · Nudge-based · Fairness-aware", color: "#00d4aa", icon: CalendarClock },
+  { href: "/siting", label: "Siting Engine", desc: "NSGA-II · 500m hex grid · SHAP explainability", color: "#f59e0b", icon: MapPin },
+  { href: "/digital-twin", label: "Digital Twin", desc: "SUMO simulator · What-if scenarios · 3 corridors", color: "#ec4899", icon: GitBranch },
+];
+
+export default function DashboardPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white">GridPulse BLR</h1>
+          <p className="text-[#64748b] text-sm mt-1">
+            Federated Demand-Shaping & Siting Engine · BESCOM EV Transition
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00d4aa]/10 border border-[#00d4aa]/20 text-xs text-[#00d4aa]">
+          <span className="w-2 h-2 rounded-full bg-[#00d4aa] animate-pulse" />
+          Live Feed Active
         </div>
-      </main>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-4 gap-4">
+        {kpis.map(({ label, value, sub, color, icon: Icon }) => (
+          <div key={label} className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs text-[#64748b]">{label}</span>
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `${color}20` }}>
+                <Icon size={14} style={{ color }} />
+              </div>
+            </div>
+            <div className="text-2xl font-bold text-white">{value}</div>
+            <div className="text-xs mt-1" style={{ color }}>{sub}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-3 gap-4">
+        {/* Module Cards */}
+        <div className="col-span-2 grid grid-cols-2 gap-4">
+          {modules.map(({ href, label, desc, color, icon: Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4 hover:border-[#00d4aa]/40 transition-all group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${color}20` }}>
+                  <Icon size={18} style={{ color }} />
+                </div>
+                <ArrowUpRight size={14} className="text-[#64748b] group-hover:text-[#00d4aa] transition-colors" />
+              </div>
+              <div className="font-semibold text-white text-sm mb-1">{label}</div>
+              <div className="text-xs text-[#64748b]">{desc}</div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Alerts */}
+        <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-sm font-semibold text-white">Live Alerts</span>
+            <span className="text-xs text-[#64748b]">SCADA Feed</span>
+          </div>
+          <div className="space-y-3">
+            {alerts.map((a, i) => (
+              <div key={i} className="flex gap-2.5 items-start">
+                {a.type === "warn"
+                  ? <AlertTriangle size={13} className="text-[#f59e0b] mt-0.5 shrink-0" />
+                  : <CheckCircle size={13} className="text-[#10b981] mt-0.5 shrink-0" />}
+                <div>
+                  <p className="text-xs text-[#e2e8f0] leading-snug">{a.msg}</p>
+                  <p className="text-[10px] text-[#64748b] mt-0.5">{a.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Sub-division status */}
+      <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+        <div className="text-sm font-semibold text-white mb-4">Sub-Division Federated Model Status</div>
+        <div className="grid grid-cols-3 gap-4">
+          {[
+            { name: "South-East (Koramangala / HSR)", dtrs: 412, sync: "2 min ago", accuracy: "91.2%", status: "ok" },
+            { name: "East (Whitefield / Marathahalli)", dtrs: 389, sync: "5 min ago", accuracy: "88.7%", status: "ok" },
+            { name: "South (Electronic City / Sarjapur)", dtrs: 446, sync: "11 min ago", accuracy: "89.4%", status: "warn" },
+          ].map((sd) => (
+            <div key={sd.name} className="bg-[#0f1117] rounded-lg p-3 border border-[#2d3748]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`w-2 h-2 rounded-full ${sd.status === "ok" ? "bg-[#10b981]" : "bg-[#f59e0b]"}`} />
+                <span className="text-xs font-medium text-white">{sd.name}</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div><div className="text-sm font-bold text-[#00d4aa]">{sd.dtrs}</div><div className="text-[10px] text-[#64748b]">DTRs</div></div>
+                <div><div className="text-sm font-bold text-white">{sd.accuracy}</div><div className="text-[10px] text-[#64748b]">Accuracy</div></div>
+                <div><div className="text-[10px] font-medium text-[#10b981]">Synced</div><div className="text-[10px] text-[#64748b]">{sd.sync}</div></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
