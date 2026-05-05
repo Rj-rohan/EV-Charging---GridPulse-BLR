@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, TrendingUp, CalendarClock, MapPin, GitBranch,
   Zap, Activity, ShieldAlert, IndianRupee, Users, FlaskConical,
-  Network, Plug, SlidersHorizontal, Smartphone, Wrench, ScanSearch
+  Network, Plug, SlidersHorizontal, Smartphone, Wrench, ScanSearch, FileText
 } from "lucide-react";
 
 const nav = [
@@ -24,6 +24,8 @@ const nav = [
   { href: "/anomaly",        label: "Anomaly Detection", icon: ScanSearch },
   { href: "/siting",         label: "Siting Engine",     icon: MapPin },
   { href: "/digital-twin",   label: "Digital Twin",      icon: GitBranch },
+  { href: "/ab-test",        label: "A/B Testing",       icon: FlaskConical },
+  { href: "/report",         label: "Report Generator",  icon: FileText },
 ];
 
 export default function Sidebar() {
