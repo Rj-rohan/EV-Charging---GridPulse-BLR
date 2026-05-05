@@ -1,3 +1,5 @@
+"use client";
+import { useEffect } from "react";
 import Link from "next/link";
 import {
   Zap, TrendingUp, CalendarClock, MapPin, GitBranch,
@@ -8,6 +10,9 @@ import {
 import ImpactPanel from "@/components/ImpactPanel";
 import AlertActionMap from "@/components/AlertActionMap";
 import DecisionPanel from "@/components/DecisionPanel";
+import AIPanel from "@/components/AIPanel";
+import { useGroq } from "@/lib/useGroq";
+import { prompts, AIDashboardInsight } from "@/lib/groq";
 
 const kpis = [
   { label: "Active DTRs Monitored",    value: "1,247", sub: "+23 this week",       color: "#00d4aa", icon: Activity },
@@ -44,8 +49,15 @@ const allModules = [
 ];
 
 export default function DashboardPage() {
+  const insight = useGroq<AIDashboardInsight | null>(null);
+
+  useEffect(() => { insight.fetch(prompts.dashboardInsight()); }, []);
+
+  const statusColor: Record<string, string> = { critical: "#ef4444", warn: "#f59e0b", stable: "#10b981" };
+  const ins = insight.data;
+
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 md:p-6 space-y-6">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
@@ -61,7 +73,7 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {kpis.map(({ label, value, sub, color, icon: Icon }) => (
           <div key={label} className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
@@ -76,9 +88,9 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {/* Module grid */}
-        <div className="col-span-3 grid grid-cols-4 gap-3">
+        <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {allModules.map(({ href, label, desc, color, icon: Icon }) => (
             <Link key={href} href={href}
               className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-3 hover:border-[#00d4aa]/40 transition-all group">
@@ -95,7 +107,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Right panel: impact + alerts */}
-        <div className="space-y-4">
+        <div className="lg:col-span-1 space-y-4">
           <ImpactPanel />
           <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
@@ -119,6 +131,40 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* AI Live Insight */}
+      <AIPanel title="AI Grid Status Insight" loading={insight.loading} error={insight.error}
+        lastFetched={insight.lastFetched} onRefresh={() => insight.fetch(prompts.dashboardInsight())} color="#00d4aa">
+        {ins ? (
+          <div className="space-y-3">
+            <div className="flex items-start gap-3">
+              <span className="text-lg font-bold px-2 py-0.5 rounded-full shrink-0"
+                style={{ background: `${statusColor[ins.systemStatus]}20`, color: statusColor[ins.systemStatus] }}>
+                {ins.systemStatus.toUpperCase()}
+              </span>
+              <p className="text-sm font-semibold text-white leading-snug">{ins.headline}</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="bg-[#0f1117] rounded-lg p-3 border border-[#2d3748]">
+                <div className="text-[#64748b] mb-1">Critical DTRs</div>
+                <div className="flex flex-wrap gap-1">{ins.criticalDtrs.map(d => (
+                  <span key={d} className="font-mono text-[#ef4444] bg-[#ef4444]/10 px-1.5 py-0.5 rounded text-[10px]">{d}</span>
+                ))}</div>
+              </div>
+              <div className="bg-[#0f1117] rounded-lg p-3 border border-[#2d3748]">
+                <div className="text-[#64748b] mb-1">Top Action</div>
+                <div className="text-[#e2e8f0] leading-snug">{ins.topAction}</div>
+              </div>
+              <div className="bg-[#0f1117] rounded-lg p-3 border border-[#2d3748]">
+                <div className="text-[#64748b] mb-1">Peak Forecast</div>
+                <div className="text-[#f59e0b] font-medium">{ins.peakForecast}</div>
+              </div>
+            </div>
+          </div>
+        ) : !insight.loading && (
+          <p className="text-xs text-[#64748b] text-center py-3">Click refresh to get live AI grid insight</p>
+        )}
+      </AIPanel>
+
       {/* Alert → Action Mapping */}
       <AlertActionMap />
 
@@ -128,7 +174,7 @@ export default function DashboardPage() {
       {/* Sub-division status */}
       <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
         <div className="text-sm font-semibold text-white mb-4">Sub-Division Federated Model Status</div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { name: "South-East (Koramangala / HSR)",      dtrs: 412, sync: "2 min ago",  accuracy: "91.2%", status: "ok" },
             { name: "East (Whitefield / Marathahalli)",     dtrs: 389, sync: "5 min ago",  accuracy: "88.7%", status: "ok" },

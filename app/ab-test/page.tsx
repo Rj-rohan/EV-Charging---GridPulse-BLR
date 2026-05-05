@@ -61,7 +61,7 @@ export default function ABTestPage() {
       </div>
 
       {/* Config */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4 space-y-4">
           <div className="text-sm font-semibold text-white">Experiment Setup</div>
           <div className="flex gap-2">
@@ -101,11 +101,11 @@ export default function ABTestPage() {
         </div>
 
         {/* Results */}
-        <div className="col-span-2 space-y-4">
+        <div className="lg:col-span-2 space-y-4">
           {ran ? (
             <>
               {/* Summary cards */}
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[
                   { label: "Shift % — A",    value: `${shiftA}%`,          color: "#6366f1", icon: TrendingUp },
                   { label: "Shift % — B",    value: `${shiftB}%`,          color: "#ec4899", icon: TrendingUp },

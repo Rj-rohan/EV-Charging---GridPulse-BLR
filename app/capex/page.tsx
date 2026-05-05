@@ -43,7 +43,7 @@ export default function CapexPage() {
       </div>
 
       {/* KPIs */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { label: "Critical Upgrades",    value: String(transformers.filter(t => t.priority === "critical").length), color: "#ef4444", icon: AlertTriangle },
           { label: "High Priority",         value: String(transformers.filter(t => t.priority === "high").length),     color: "#f59e0b", icon: Wrench },
@@ -63,7 +63,7 @@ export default function CapexPage() {
       </div>
 
       {/* Upgrade table */}
-      <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+      <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4 overflow-x-auto">
         <div className="text-sm font-semibold text-white mb-4">Transformer Upgrade Priority List</div>
         <table className="w-full text-xs">
           <thead>
@@ -104,7 +104,7 @@ export default function CapexPage() {
         </table>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Upgrade vs demand shift */}
         <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
           <div className="text-sm font-semibold text-white mb-1">Upgrade Cost vs Demand-Shift Saving</div>

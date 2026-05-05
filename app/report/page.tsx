@@ -58,7 +58,7 @@ export default function ReportPage() {
         <p className="text-[#64748b] text-sm mt-1">BESCOM-ready reports · Government meetings · Funding approvals · Council presentations</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Config */}
         <div className="space-y-4">
           <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">

@@ -56,7 +56,7 @@ export default function SitingPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { icon: MapPin, label: "Candidate Hexcells", value: "4,812", color: "#f59e0b" },
           { icon: Zap, label: "Top Recommendations", value: "247", color: "#00d4aa" },
@@ -75,9 +75,9 @@ export default function SitingPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Pareto frontier */}
-        <div className="col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+        <div className="lg:col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
           <div className="flex items-center justify-between mb-1">
             <div className="text-sm font-semibold text-white">Pareto Frontier — Utilization vs Coverage</div>
           </div>
@@ -130,8 +130,8 @@ export default function SitingPage() {
       </div>
 
       {/* Candidates table */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4 overflow-x-auto">
           <div className="text-sm font-semibold text-white mb-4">Top Siting Recommendations</div>
           <table className="w-full text-xs">
             <thead>

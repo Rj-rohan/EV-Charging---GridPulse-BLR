@@ -17,9 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
       <body className="min-h-full flex bg-[#0f1117] text-[#e2e8f0]">
         <Sidebar />
-        <div className="flex-1 ml-64 flex flex-col min-h-screen">
+        <div className="flex-1 md:ml-64 flex flex-col min-h-screen">
           <TopBar />
-          {/* pt-11 for normal topbar, pt-[88px] when walkthrough banner is shown — handled via padding */}
           <main className="flex-1 pt-11 overflow-auto">{children}</main>
         </div>
       </body>

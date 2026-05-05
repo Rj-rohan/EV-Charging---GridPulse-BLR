@@ -63,7 +63,7 @@ export default function BehaviorPage() {
       </div>
 
       {/* Overall */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {overallStats.map(({ label, value, color, icon: Icon }) => (
           <div key={label} className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
@@ -77,7 +77,7 @@ export default function BehaviorPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Pie */}
         <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
           <div className="text-sm font-semibold text-white mb-4">Overall Response Split</div>
@@ -95,7 +95,7 @@ export default function BehaviorPage() {
         </div>
 
         {/* Breakdown chart */}
-        <div className="col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+        <div className="lg:col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm font-semibold text-white">Response by Segment</div>
             <div className="flex gap-1">
@@ -125,7 +125,7 @@ export default function BehaviorPage() {
       {/* User clusters */}
       <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
         <div className="text-sm font-semibold text-white mb-4">User Clusters — Contextual Bandit Segmentation</div>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {clusters.map(c => (
             <div key={c.name} className="rounded-xl p-4 border" style={{ background: `${c.color}0d`, borderColor: `${c.color}30` }}>
               <div className="flex items-center justify-between mb-2">
@@ -143,7 +143,7 @@ export default function BehaviorPage() {
       </div>
 
       {/* Insight callouts */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { title: "Night Chargers need no nudge", body: "30% of users already charge off-peak. Targeting only the remaining 70% reduces notification fatigue and improves acceptance rates.", color: "#6366f1" },
           { title: "Low-income users most responsive", body: "Users in the <₹5L bracket show 72% acceptance — highest of any group. Price sensitivity is the primary driver, not convenience.", color: "#10b981" },

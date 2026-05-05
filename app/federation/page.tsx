@@ -99,7 +99,7 @@ export default function FederationPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Gradient exchange log */}
         <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
           <div className="text-sm font-semibold text-white mb-4">Gradient Exchange Log</div>

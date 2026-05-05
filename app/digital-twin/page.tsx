@@ -57,8 +57,8 @@ export default function DigitalTwinPage() {
       </div>
 
       {/* Config */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4 space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-2 bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4 space-y-4">
           <div className="text-sm font-semibold text-white flex items-center gap-2">
             <GitBranch size={15} className="text-[#ec4899]" />
             Scenario Configuration
@@ -66,7 +66,7 @@ export default function DigitalTwinPage() {
 
           <div>
             <div className="text-xs text-[#64748b] mb-2">Corridor</div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {corridors.map((c) => (
                 <button key={c} onClick={() => { setCorridor(c); setRan(false); }}
                   className={`px-3 py-1.5 rounded-lg text-xs transition-all ${corridor === c ? "bg-[#ec4899]/20 text-[#ec4899] border border-[#ec4899]/40" : "bg-[#0f1117] text-[#64748b] border border-[#2d3748] hover:border-[#64748b]"}`}>

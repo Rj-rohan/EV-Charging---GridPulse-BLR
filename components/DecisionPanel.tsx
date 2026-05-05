@@ -78,7 +78,7 @@ export default function DecisionPanel() {
       </div>
 
       {/* Action selector */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex flex-wrap gap-2 mb-4">
         {justifications.map((jj, i) => (
           <button key={i} onClick={() => setSelected(i)}
             className={`px-3 py-1.5 rounded-lg text-xs transition-all border ${selected === i ? "bg-[#f59e0b]/15 text-[#f59e0b] border-[#f59e0b]/40" : "text-[#64748b] border-[#2d3748] hover:border-[#64748b]"}`}>
@@ -87,9 +87,9 @@ export default function DecisionPanel() {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Question + risks */}
-        <div className="col-span-2 space-y-3">
+        <div className="lg:col-span-2 space-y-3">
           <div className="flex items-center gap-2">
             <Info size={13} className="text-[#f59e0b]" />
             <span className="text-sm font-semibold text-white">{j.question}</span>

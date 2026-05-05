@@ -55,7 +55,7 @@ export default function IntegrationPage() {
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: "Connected",     value: connected, color: "#10b981" },
           { label: "Degraded",      value: degraded,  color: "#f59e0b" },
@@ -72,7 +72,7 @@ export default function IntegrationPage() {
       </div>
 
       {/* System table */}
-      <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
+      <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4 overflow-x-auto">
         <div className="flex items-center gap-2 mb-4">
           <Plug size={14} className="text-[#00d4aa]" />
           <span className="text-sm font-semibold text-white">Integration Endpoints</span>
@@ -124,7 +124,7 @@ export default function IntegrationPage() {
         </table>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* DTR missing data */}
         <div className="bg-[#1a1f2e] border border-[#2d3748] rounded-xl p-4">
           <div className="flex items-center gap-2 mb-4">

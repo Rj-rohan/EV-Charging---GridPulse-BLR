@@ -68,7 +68,7 @@ export default function AlertActionMap() {
         <span className="text-xs text-[#64748b] ml-auto">One-click simulate</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Alert list */}
         <div className="space-y-2">
           {alertActions.map(a => (
@@ -89,7 +89,7 @@ export default function AlertActionMap() {
         </div>
 
         {/* Actions */}
-        <div className="col-span-2 space-y-2">
+        <div className="md:col-span-2 space-y-2">
           <div className="text-xs text-[#64748b] mb-2">
             Suggested actions for <span className="text-[#6366f1] font-mono">{selected.dtr}</span> — {selected.ward}
           </div>
